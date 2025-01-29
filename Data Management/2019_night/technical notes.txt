@@ -1,0 +1,1 @@
+some counties have the same county and district name, but they are identified as different polygons in nl extraction. Also, there maybe some administrative districts changes, for example, in 2019.07, Obongi was carved out of Moyo District. But in UNHS, it is still recorded as a county in Moyo. 
