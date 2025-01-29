@@ -1,0 +1,43 @@
+---
+name: WD_food
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - conda-lock
+  - ipykernel
+  - jupyterlab
+  - openpyxl
+  - pandas
+  - pdbpp
+  - pip >=21.1
+  - plotly>=5.13.0
+  - pre-commit
+  - pytask-latex
+  - pytask-parallel
+  - pytask>=0.2
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - python-graphviz
+  - python=3.11
+  - pyyaml
+  - setuptools_scm
+  - statsmodels
+  - scikit-learn == 1.5.2
+  - toml
+  - XGBoost
+  - numpy
+  - matplotlib
+  - seaborn
+  - scipy
+  - pandas
+  - imblearn
+  - sklearn
+  - shap
+  - ipywidgets 
+  - scikit-optimize
+  - pip:
+      - -e .
+      - kaleido
