@@ -953,3 +953,52 @@ p0 <- ggplot(summary_metrics, aes(x = min_Threshold, y = threshold_diff, color =
 p0
 ggsave('bld/figures/Feasiblity_Threshold607080.jpg', p0, width = 10,
        height = 6, dpi = 800)
+
+############################## elasticity ##############################
+#############################
+# calculate elasticity of the Recall of threshold to compare the sensitivity of the change in Recall before and during 
+methods <- unique(results_df_plt_district$Resampling)
+Recall_elasticity_store <- data.frame(thresholds = NA, Resampling = NA, elasticity = NA, 
+                                      drivative = NA, Recall_before = NA, elasticity_FPR = NA)
+for (i in 1:length(methods)) {
+  df <- results_df_plt_district[results_df_plt_district$Resampling == methods[i], ]
+  lenselect <- dim(df)[1]
+  thresholds <- df$Threshold
+  thresholds <- thresholds[1:lenselect-1]
+  Recall_elasticity <- data.frame(thresholds = thresholds)
+  recall_t0 <- df$Recall_before
+  recall_t0 <- recall_t0[1:lenselect-1]
+  recall_t1 <- df$Recall_before
+  recall_t1 <- recall_t1[2:lenselect ]
+  elas <- (recall_t1 - recall_t0)/tiks 
+  elasi <- (recall_t1 - recall_t0) / recall_t0 / tiks / thresholds
+  Recall_elasticity['Resampling'] <- rep(methods[i], lenselect -1)
+  Recall_elasticity['drivative'] <- elas
+  Recall_elasticity['elasticity'] <- elasi
+  Recall_elasticity['Recall_before'] <- recall_t0
+  FRP_t0 <- df$FPR_before
+  FPR_t0 <- recall_t0[1:lenselect-1]
+  FRP_t1 <- df$FPR_before
+  FRP_t1 <- recall_t1[2:lenselect ]
+  elasi_FPR <- (FRP_t1 - FPR_t0) / FPR_t0 / tiks / thresholds
+  Recall_elasticity['elasticity_FPR'] <- elasi_FPR
+  Recall_elasticity_store <- rbind(Recall_elasticity_store, Recall_elasticity)
+}
+Recall_elasticity_store$model <- sapply(strsplit(Recall_elasticity_store$Resampling, " "), `[`, 1)
+Recall_elasticity_store <- Recall_elasticity_store[Recall_elasticity_store$thresholds >0, ]
+# Recall_elasticity_store <- Recall_elasticity_store[Recall_elasticity_store$drivative != 0, ]
+summary_metrics <- Recall_elasticity_store %>%
+  group_by(Resampling) %>%
+  summarise(
+    mean_d = mean(drivative, na.rm = T), 
+    sum_d = sum(drivative, na.rm = T), 
+    mean_e = mean(elasticity, na.rm = T), 
+    sum_e = sum(elasticity, na.rm = T), 
+    mean_e_FPR = mean(elasticity_FPR, na.rm = T), 
+    sum_e_FPR = sum(elasticity_FPR, na.rm = T), 
+    .groups = "drop"
+  )
+summary_metrics$mean_e <- round(summary_metrics$mean_e, 1)
+summary_metrics$mean_e_FPR <- round(summary_metrics$mean_e_FPR, 1)
+write.csv(summary_metrics, 'bld/elasticity_before.csv')
+
