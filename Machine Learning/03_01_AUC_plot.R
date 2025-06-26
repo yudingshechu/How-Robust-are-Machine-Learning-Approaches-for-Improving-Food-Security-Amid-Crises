@@ -70,7 +70,7 @@ p1 <- ggplot(result, aes(x = change, y = `AUC during`, color = Model, shape = Mo
     y = "performance: AUC during COVID"
   ) 
 p1
-ggsave('bld/figures/AUC_change_district.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_district.pdf', p1, width = 8,
        height = 5, dpi = 800)
 p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = Model)) + 
   geom_point(size = 2) + 
@@ -82,7 +82,7 @@ p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = M
     y = "AUC during COVID"
   ) + scale_x_reverse()
 p1
-ggsave('bld/figures/AUC_change_district_percent.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_district_percent.pdf', p1, width = 8,
        height = 5, dpi = 800)
 
 # county
@@ -127,7 +127,7 @@ p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = M
     y = "AUC during COVID"
   ) + scale_x_reverse()
 p1
-ggsave('bld/figures/AUC_change_county_percent.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_county_percent.pdf', p1, width = 8,
        height = 4, dpi = 800)
 p2 <- ggplot(result, aes(x = change, y = `AUC during`, color = Model, shape = Model)) + 
   geom_point(size = 2) + 
@@ -139,7 +139,7 @@ p2 <- ggplot(result, aes(x = change, y = `AUC during`, color = Model, shape = Mo
     y = "performance: during COVID AUC"
   ) 
 p2
-ggsave('bld/figures/AUC_change_county.jpg', p2, width = 8,
+ggsave('bld/figures/AUC_change_county.pdf', p2, width = 8,
        height = 4, dpi = 800)
 
 # subcounty
@@ -183,7 +183,7 @@ p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = M
     y = "AUC during COVID"
   ) + scale_x_reverse()
 p1
-ggsave('bld/figures/AUC_change_subcounty_percent.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_subcounty_percent.pdf', p1, width = 8,
        height = 4, dpi = 800)
 p3 <- ggplot(result, aes(x = change, y = `AUC during`, color = Model, shape = Model)) + 
   geom_point(size = 2) + 
@@ -195,7 +195,7 @@ p3 <- ggplot(result, aes(x = change, y = `AUC during`, color = Model, shape = Mo
     y = "perfromance: during COVID AUC"
   ) + scale_x_reverse()
 p3
-ggsave('bld/figures/AUC_change_subcounty.jpg', p3, width = 8,
+ggsave('bld/figures/AUC_change_subcounty.pdf', p3, width = 8,
        height = 4, dpi = 800)
 
 result_district['Region'] <- 'district'
@@ -226,7 +226,7 @@ p0 <- ggplot(together_result, aes(x = percent, y = `AUC during`, color = Region,
   ) + 
   geom_vline(xintercept = 0, linetype = 'dashed', color = 'red')
 p0
-ggsave('bld/figures/AUC_change_all_precentage.jpg', p0, width = 8,
+ggsave('bld/figures/AUC_change_all_precentage.pdf', p0, width = 8,
        height = 5, dpi = 800)
 p0 <- ggplot(together_result, aes(x = change, y = `AUC during`, color = Region, shape = Model)) + 
   geom_point(size = 2) + 
@@ -239,7 +239,7 @@ p0 <- ggplot(together_result, aes(x = change, y = `AUC during`, color = Region, 
   ) + 
   geom_vline(xintercept = 0, linetype = 'dashed', color = 'red')
 p0
-ggsave('bld/figures/AUC_change_all.jpg', p0, width = 8,
+ggsave('bld/figures/AUC_change_all.pdf', p0, width = 8,
        height = 5, dpi = 800)
 p0_abs <- ggplot(together_result_abs, aes(x = change, y = `AUC during`, color = Region, shape = Model)) + 
   geom_point(size = 2) + 
@@ -251,7 +251,7 @@ p0_abs <- ggplot(together_result_abs, aes(x = change, y = `AUC during`, color = 
     y = "performance: AUC during COVID"
   ) 
 p0_abs
-ggsave('bld/figures/AUC_change_all_abs.jpg', p0_abs, width = 8,
+ggsave('bld/figures/AUC_change_all_abs.pdf', p0_abs, width = 8,
        height = 5, dpi = 800)
 
 together_result['percent_abs'] <- abs(together_result['percent'])
@@ -265,5 +265,5 @@ p0_abs <- ggplot(together_result, aes(x = percent_abs, y = `AUC during`, color =
     y = "AUC during COVID"
   ) + scale_x_reverse()
 p0_abs
-ggsave('bld/figures/AUC_change_all_abs_percent.jpg', p0_abs, width = 8,
+ggsave('bld/figures/AUC_change_all_abs_percent.pdf', p0_abs, width = 8,
        height = 5, dpi = 800)
