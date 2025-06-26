@@ -468,6 +468,9 @@ results_df_plt_county['Precision_change'] <- results_df_plt_county$Precision_bef
 results_df_plt_subcounty['Precision_change'] <- results_df_plt_subcounty$Precision_before - results_df_plt_subcounty$Precision
 ###########################################################################################
 ###########################################################################################
+
+###########################################################################################
+###########################################################################################
 # given recall rate, compare the FPR
 region_df <-results_df_plt_district
 
@@ -613,20 +616,29 @@ p1 <- ggplot(summary_metrics_total, aes(x = abs_FPR, y = mean_FPR, color = Model
   ) + xlim(0, 0.3) + 
   geom_vline(xintercept = 0, linetype = 'dashed', color = 'red')
 p1
-ggsave('bld/figures/FPR_given_total_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_total_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 
+############# try 
+summary_metrics_high['resample_method'] <- NA
+summary_metrics_high[grepl('ADASYN', summary_metrics_high$Resampling), 'resample_method'] <- 'R I'
+summary_metrics_high[grepl('SMOTE', summary_metrics_high$Resampling), 'resample_method'] <- 'R II'
+summary_metrics_high[grepl('SMOTE ENN', summary_metrics_high$Resampling), 'resample_method'] <- 'R III'
+summary_metrics_high[grepl('SMOTE Tomek', summary_metrics_high$Resampling), 'resample_method'] <- 'R IV'
+summary_metrics_high[grepl('original', summary_metrics_high$Resampling), 'resample_method'] <- 'original'
+summary_metrics_high[grepl('balanced weight', summary_metrics_high$Resampling), 'resample_method'] <- 'balance'
+
 p1 <- ggplot(summary_metrics_high, aes(x = abs_FPR, y = mean_FPR, color = Model, shape = Model)) +
-  geom_point(size = 2) +
+  geom_point(size = 4) +
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() +
   labs(
     x = "robustness: absolute change in FPR",
     y = "performance: FPR during COVID"
   ) 
 p1
-ggsave('bld/figures/FPR_given_0709_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_0709_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 
 p1 <- ggplot(summary_metrics_low, aes(x = abs_FPR, y = mean_FPR, color = Model, shape = Model)) +
@@ -639,7 +651,7 @@ p1 <- ggplot(summary_metrics_low, aes(x = abs_FPR, y = mean_FPR, color = Model, 
     y = "performance: FPR during COVID"
   ) 
 p1
-ggsave('bld/figures/FPR_given_0507_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_0507_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 ################################################################################################
 results_df_plt_district_before <- region_df[region_df$Recall_before >= 0.6 &
@@ -784,20 +796,28 @@ p1 <- ggplot(summary_metrics_total, aes(x = abs_FPR, y = mean_FPR, color = Model
   ) + xlim(0, 0.3) + 
   geom_vline(xintercept = 0, linetype = 'dashed', color = 'red')
 p1
-ggsave('bld/figures/FPR_given_total95_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_total95_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 
+summary_metrics_high['resample_method'] <- NA
+summary_metrics_high[grepl('ADASYN', summary_metrics_high$Resampling), 'resample_method'] <- 'R I'
+summary_metrics_high[grepl('SMOTE', summary_metrics_high$Resampling), 'resample_method'] <- 'R II'
+summary_metrics_high[grepl('SMOTE ENN', summary_metrics_high$Resampling), 'resample_method'] <- 'R III'
+summary_metrics_high[grepl('SMOTE Tomek', summary_metrics_high$Resampling), 'resample_method'] <- 'R IV'
+summary_metrics_high[grepl('original', summary_metrics_high$Resampling), 'resample_method'] <- 'original'
+summary_metrics_high[grepl('balanced weight', summary_metrics_high$Resampling), 'resample_method'] <- 'balance'
+
 p1 <- ggplot(summary_metrics_high, aes(x = abs_FPR, y = mean_FPR, color = Model, shape = Model)) +
-  geom_point(size = 2) +
+  geom_point(size = 4) +
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() +
   labs(
     x = "robustness: absolute change in FPR",
     y = "performance: FPR during COVID"
   )  
 p1
-ggsave('bld/figures/FPR_given_7595_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_7595_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 
 p1 <- ggplot(summary_metrics_low, aes(x = abs_FPR, y = mean_FPR, color = Model, shape = Model)) +
@@ -810,7 +830,7 @@ p1 <- ggplot(summary_metrics_low, aes(x = abs_FPR, y = mean_FPR, color = Model, 
     y = "performance: FPR during COVID"
   )  
 p1
-ggsave('bld/figures/FPR_given_0675_recall.jpg', p1, width = 7,
+ggsave('bld/figures/FPR_given_0675_recall.pdf', p1, width = 7,
        height = 5, dpi = 500)
 
 ################################################################################################
@@ -918,40 +938,52 @@ summary_metrics_1_high <- summary_metrics_1
 summary_metrics <- rbind(summary_metrics_1_low, summary_metrics_1_low2, 
                          summary_metrics_1_mid, summary_metrics_1_high)
 summary_metrics['threshold_plot'] <- summary_metrics$length_Threshold/1000
-p0 <- ggplot(summary_metrics, aes(x =threshold_plot , y = abs_FPR_change, color = Model, shape = `Recall range`)) + 
-  geom_point(size = 2) + 
+# try new athes
+summary_metrics_new <- summary_metrics[summary_metrics$`Recall range` %in% c("60% - 70%", 
+                                                                             "70% - 80%", "80% - 90%"), ]
+summary_metrics_new['resample_method'] <- NA
+summary_metrics_new[grepl('ADASYN', summary_metrics_new$Resampling), 'resample_method'] <- 'R I'
+summary_metrics_new[grepl('SMOTE', summary_metrics_new$Resampling), 'resample_method'] <- 'R II'
+summary_metrics_new[grepl('SMOTE ENN', summary_metrics_new$Resampling), 'resample_method'] <- 'R III'
+summary_metrics_new[grepl('SMOTE Tomek', summary_metrics_new$Resampling), 'resample_method'] <- 'R IV'
+summary_metrics_new[grepl('original', summary_metrics_new$Resampling), 'resample_method'] <- 'original'
+summary_metrics_new[grepl('balanced weight', summary_metrics_new$Resampling), 'resample_method'] <- 'balance'
+summary_metrics_new$resample_method <- paste(summary_metrics_new$Model, summary_metrics_new$resample_method, sep = ' ')
+
+p0 <- ggplot(summary_metrics_new, aes(x =threshold_plot , y = abs_FPR_change, color = Model, shape = `Recall range`)) + 
+  geom_point(size = 3) + 
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() + labs(
-    x = "length of decision threshold",
+    x = "length of decision interval",
     y = "absolute difference in FPR"
   ) 
 p0
-ggsave('bld/figures/Feasiblity_ThresholdvsFPR.jpg', p0, width = 10,
+ggsave('bld/figures/Feasiblity_ThresholdvsFPR.pdf', p0, width = 10,
        height = 6, dpi = 800)
-p0 <- ggplot(summary_metrics, aes(x = abs_FPR_change, y = mean_FPR, color = Model, shape = `Recall range`)) + 
-  geom_point(size = 2) + 
+p0 <- ggplot(summary_metrics_new, aes(x = abs_FPR_change, y = mean_FPR, color = Model, shape = `Recall range`)) + 
+  geom_point(size = 3) + 
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() + labs(
     x = "robustness: absolute change in FPR",
     y = "performance: FPR during COVID"
   ) 
 p0
-ggsave('bld/figures/Feasiblity_Recall607080.jpg', p0, width = 10,
+ggsave('bld/figures/Feasiblity_Recall607080.pdf', p0, width = 10,
        height = 6, dpi = 800)
 
 summary_metrics['threshold_diff'] <- summary_metrics$max_Threshold - summary_metrics$min_Threshold
-p0 <- ggplot(summary_metrics, aes(x = min_Threshold, y = threshold_diff, color = Model, shape = `Recall range`)) + 
-  geom_point(size = 2) + 
+p0 <- ggplot(summary_metrics_new, aes(x = min_Threshold, y = threshold_diff, color = Model, shape = `Recall range`)) + 
+  geom_point(size = 3) + 
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() + labs(
     x = "lower bound of Threshold",
     y = "length of Threshold"
   )
 p0
-ggsave('bld/figures/Feasiblity_Threshold607080.jpg', p0, width = 10,
+ggsave('bld/figures/Feasiblity_Threshold607080.pdf', p0, width = 10,
        height = 6, dpi = 800)
 
 ############################## elasticity ##############################
@@ -1002,3 +1034,170 @@ summary_metrics$mean_e <- round(summary_metrics$mean_e, 1)
 summary_metrics$mean_e_FPR <- round(summary_metrics$mean_e_FPR, 1)
 write.csv(summary_metrics, 'bld/elasticity_before.csv')
 
+#############################################################################
+# here we add contents for the 2nd round of revision 
+# ROC plot 
+r4_colors <- c("LR balanced weight" = "#DCE319FF", "LR before" = "#FDE725FF", 
+               "RF balanced weight" = "#1F968BFF", "RF before" = "#55C667FF", 
+               "XGB balanced weight" = "#440154FF", "XGB before" = "#404788FF" )
+results_df_plt_district_ROC_plot <- results_df_plt_district[results_df_plt_district$Resampling %in% c('LR balanced weight', 
+                                                                                                      'RF balanced weight','XGB balanced weight' ), ]
+
+p7 <- ggplot(results_df_plt_district_ROC_plot, aes(x = FPR, y = Recall, color = Resampling)) + 
+  geom_line(size = 1, alpha = 0.8) +
+  geom_abline(intercept = 0, slope = 1, linetype = 'dashed', color = 'red') + 
+  labs(x = "FPR", y = "Recall") +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  theme_bw() + 
+  scale_color_manual(values = r4_colors, name = 'Model') +
+  theme(legend.position = "right")
+p7
+ggsave('bld/figures/ROC_balanced_weight_during_district.pdf', p7, width = 7,
+       height = 5, dpi = 500)
+
+results_df_plt_county_ROC_plot <- results_df_plt_county[results_df_plt_county$Resampling %in% c('LR balanced weight', 
+                                                                                                      'RF balanced weight','XGB balanced weight' ), ]
+
+p7 <- ggplot(results_df_plt_county_ROC_plot, aes(x = FPR, y = Recall, color = Resampling)) + 
+  geom_line(size = 1, alpha = 0.8) +
+  geom_abline(intercept = 0, slope = 1, linetype = 'dashed', color = 'red') + 
+  labs(x = "FPR", y = "Recall") +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  theme_bw() + 
+  scale_color_manual(values = r4_colors, name = 'Model') +
+  theme(legend.position = "right")
+p7
+ggsave('bld/figures/ROC_balanced_weight_during_county.pdf', p7, width = 7,
+       height = 5, dpi = 500)
+
+#### here we illustrate the concept of decision threshold 
+ROC_decompose <- results_df_plt_district[results_df_plt_district$Resampling %in% c('RF balanced weight'), 
+                                         c(1, 3, 6, 8, 11)]
+
+df_long <- reshape(
+  ROC_decompose,
+  varying = list(c("Recall_before", "FPR_before", 'Recall', 'FPR')),
+  v.names = "value",
+  timevar = "variable",
+  times = c("Recall_before", "FPR_before", 'Recall', 'FPR'),
+  direction = "long"
+)
+df_long$Model <- ifelse(grepl("_", df_long$variable), "before", "during")
+df_long$variable <- ifelse(grepl("Recall", df_long$variable), "Recall", "FPR")
+
+p12 <- ggplot(df_long, aes(x = Threshold, y = value, color = variable, linetype = Model)) +
+  geom_line(, size = 1) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  geom_hline(yintercept = 0.9, color = 'red', linetype = 'dotted', size = 0.8) + 
+  geom_hline(yintercept = 0.7, color = 'red', linetype = 'dotted', size = 0.8) + 
+  labs(x = "Threshold", y = "Score", color = "Metric") +
+  theme_minimal() +
+  theme(legend.position = "right")+
+  scale_color_manual(values = c(
+    "FPR" = "#55C667FF",
+    "Recall" = "#440154FF"
+    # Add more if needed, matching levels of `variable`
+  ))
+p12
+ggsave('bld/figures/ROC_decompose_RF_balancedweight.pdf', p12, width = 7,
+       height = 5, dpi = 500)
+
+ROC_decompose <- results_df_plt_district[results_df_plt_district$Resampling %in% c('XGB ADASYN'), 
+                                         c(1, 3, 6, 8, 11)]
+
+df_long <- reshape(
+  ROC_decompose,
+  varying = list(c("Recall_before", "FPR_before", 'Recall', 'FPR')),
+  v.names = "value",
+  timevar = "variable",
+  times = c("Recall_before", "FPR_before", 'Recall', 'FPR'),
+  direction = "long"
+)
+df_long$Model <- ifelse(grepl("_", df_long$variable), "before", "during")
+df_long$variable <- ifelse(grepl("Recall", df_long$variable), "Recall", "FPR")
+
+p12 <- ggplot(df_long, aes(x = Threshold, y = value, color = variable, linetype = Model)) +
+  geom_line(, size = 1) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  geom_hline(yintercept = 0.9, color = 'red', linetype = 'dotted', size = 0.8) + 
+  geom_hline(yintercept = 0.7, color = 'red', linetype = 'dotted', size = 0.8) + 
+  labs(x = "Threshold", y = "Score", color = "Metric") +
+  theme_minimal() +
+  theme(legend.position = "right")+
+  scale_color_manual(values = c(
+    "FPR" = "#55C667FF",
+    "Recall" = "#440154FF"
+    # Add more if needed, matching levels of `variable`
+  ))
+p12
+ggsave('bld/figures/ROC_decompose_XGB_ADASYN.pdf', p12, width = 7,
+       height = 5, dpi = 500)
+
+
+ROC_decompose <- results_df_plt_district[results_df_plt_district$Resampling %in% c('XGB balanced weight'), 
+                                         c(1, 3, 6, 8, 11)]
+
+df_long <- reshape(
+  ROC_decompose,
+  varying = list(c("Recall_before", "FPR_before", 'Recall', 'FPR')),
+  v.names = "value",
+  timevar = "variable",
+  times = c("Recall_before", "FPR_before", 'Recall', 'FPR'),
+  direction = "long"
+)
+df_long$Model <- ifelse(grepl("_", df_long$variable), "before", "during")
+df_long$variable <- ifelse(grepl("Recall", df_long$variable), "Recall", "FPR")
+
+p12 <- ggplot(df_long, aes(x = Threshold, y = value, color = variable, linetype = Model)) +
+  geom_line(, size = 1) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  geom_hline(yintercept = 0.9, color = 'red', linetype = 'dotted', size = 0.8) + 
+  geom_hline(yintercept = 0.7, color = 'red', linetype = 'dotted', size = 0.8) + 
+  labs(x = "Threshold", y = "Score", color = "Metric") +
+  theme_minimal() +
+  theme(legend.position = "right")+
+  scale_color_manual(values = c(
+    "FPR" = "#55C667FF",
+    "Recall" = "#440154FF"
+    # Add more if needed, matching levels of `variable`
+  ))
+p12
+ggsave('bld/figures/ROC_decompose_XGB_balancedweight.pdf', p12, width = 7,
+       height = 5, dpi = 500)
+
+ROC_decompose <- results_df_plt_district[results_df_plt_district$Resampling %in% c('XGB original'), 
+                                         c(1, 3, 6, 8, 11)]
+
+df_long <- reshape(
+  ROC_decompose,
+  varying = list(c("Recall_before", "FPR_before", 'Recall', 'FPR')),
+  v.names = "value",
+  timevar = "variable",
+  times = c("Recall_before", "FPR_before", 'Recall', 'FPR'),
+  direction = "long"
+)
+df_long$Model <- ifelse(grepl("_", df_long$variable), "before", "during")
+df_long$variable <- ifelse(grepl("Recall", df_long$variable), "Recall", "FPR")
+
+p12 <- ggplot(df_long, aes(x = Threshold, y = value, color = variable, linetype = Model)) +
+  geom_line(, size = 1) +
+  scale_x_continuous(breaks = seq(0, 1, 0.1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  geom_hline(yintercept = 0.9, color = 'red', linetype = 'dotted', size = 0.8) + 
+  geom_hline(yintercept = 0.7, color = 'red', linetype = 'dotted', size = 0.8) + 
+  labs(x = "Threshold", y = "Score", color = "Metric") +
+  theme_minimal() +
+  theme(legend.position = "right")+
+  scale_color_manual(values = c(
+    "FPR" = "#55C667FF",
+    "Recall" = "#440154FF"
+    # Add more if needed, matching levels of `variable`
+  ))
+p12
+ggsave('bld/figures/ROC_decompose_XGB_original.pdf', p12, width = 7,
+       height = 5, dpi = 500)
