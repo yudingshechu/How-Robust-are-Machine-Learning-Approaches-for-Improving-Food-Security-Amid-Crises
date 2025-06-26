@@ -488,7 +488,7 @@ p0 <- ggplot(summary_metrics, aes(x =threshold_plot , y = abs_FPR_change, color 
     y = "absolute difference in FPR"
   ) 
 p0
-ggsave('bld/figures/Feasiblity_ThresholdvsFPR.jpg', p0, width = 10,
+ggsave('bld/figures/Feasiblity_ThresholdvsFPR_selected.jpg', p0, width = 10,
        height = 6, dpi = 800)
 p0 <- ggplot(summary_metrics, aes(x = mean_FPR_before, y = mean_FPR, color = Model, shape = `Recall range`)) + 
   geom_point(size = 2) + 
@@ -512,7 +512,7 @@ p0 <- ggplot(summary_metrics, aes(x = min_Threshold, y = threshold_diff, color =
     y = "length of Threshold"
   )
 p0
-ggsave('bld/figures/Feasiblity_Threshold607080.jpg', p0, width = 10,
+ggsave('bld/figures/Feasiblity_Threshold607080_selected.jpg', p0, width = 10,
        height = 6, dpi = 800)
 
 
