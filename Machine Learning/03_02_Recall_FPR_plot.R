@@ -974,10 +974,10 @@ ggsave('bld/figures/Feasiblity_Recall607080.pdf', p0, width = 10,
        height = 6, dpi = 800)
 
 summary_metrics['threshold_diff'] <- summary_metrics$max_Threshold - summary_metrics$min_Threshold
-p0 <- ggplot(summary_metrics_new, aes(x = min_Threshold, y = threshold_diff, color = Model, shape = `Recall range`)) + 
+p0 <- ggplot(summary_metrics, aes(x = min_Threshold, y = threshold_diff, color = Model, shape = `Recall range`)) + 
   geom_point(size = 3) + 
   scale_color_manual(values = r4_colors2) +
-  geom_text_repel(aes(label = resample_method), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
+  geom_text_repel(aes(label = Resampling), size = 3, nudge_y = 0, direction = 'both', show.legend = FALSE) +
   theme_bw() + labs(
     x = "lower bound of Threshold",
     y = "length of Threshold"
