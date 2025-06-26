@@ -117,7 +117,7 @@ p1 <- ggplot(result_plot, aes(fill = variable, y = proportion, x = min_alg)) +
   labs(y = "Feature importance proportion", x = "Model", fill = "Variable type") +
   theme_minimal()
 p1
-ggsave('bld/figures/FeatureImportance_during_proportion.jpg', p1, width = 12,
+ggsave('bld/figures/FeatureImportance_during_proportion.pdf', p1, width = 12,
        height = 6, dpi = 800)
 
 
@@ -194,7 +194,7 @@ p1 <- ggplot(result_plot, aes(fill = variable, y = proportion, x = min_alg)) +
   labs(y = "SHAP proportion", x = "Model", fill = "Variable type") +
   theme_minimal()
 p1
-ggsave('bld/figures/SHAP_during_proportion_test.jpg', p1, width = 12,
+ggsave('bld/figures/SHAP_during_proportion_test.pdf', p1, width = 12,
        height = 6, dpi = 800)
 
 ########################################################################################
@@ -288,7 +288,7 @@ p1 <- ggplot(result_plot, aes(fill = variable, y = proportion, x = min_alg)) +
   labs(y = "Feature importance proportion", x = "Model", fill = "Variable type") +
   theme_minimal()
 p1
-ggsave('bld/figures/FeatureImportance_during_proportion.jpg', p1, width = 10,
+ggsave('bld/figures/FeatureImportance_during_proportion.pdf', p1, width = 10,
        height = 6, dpi = 800)
 
 # Rank each column (case) independently
@@ -363,7 +363,7 @@ p1 <- ggplot(result_plot, aes(fill = variable, y = proportion, x = min_alg)) +
   labs(y = "SHAP proportion", x = "Model", fill = "Variable type") +
   theme_minimal()
 p1
-ggsave('bld/figures/SHAP_during_proportion.jpg', p1, width = 10,
+ggsave('bld/figures/SHAP_during_proportion.pdf', p1, width = 10,
        height = 6, dpi = 800)
 
 # Rank each column (case) independently
@@ -469,7 +469,7 @@ p1 <- ggplot(result, aes(x = difference, y = diff_select_before, color = Model, 
     y = "AUC shift with selected feature"
   ) + geom_abline(intercept = 0, slope = 1, color = 'red', linetype = 'dashed')
 p1
-ggsave('bld/figures/AUC_change_district_select.jpg', p1, width = 6,
+ggsave('bld/figures/AUC_change_district_select.pdf', p1, width = 6,
        height = 5, dpi = 800)
 
 p1 <- ggplot(result, aes(x = diff_select_before_abs, y = difference_abs, color = Model, shape = Model)) + 
@@ -482,7 +482,7 @@ p1 <- ggplot(result, aes(x = diff_select_before_abs, y = difference_abs, color =
     y = "AUC during COVID"
   ) + geom_abline(intercept = 0, slope = 1, color = 'red')
 p1
-ggsave('bld/figures/AUC_change_district.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_district.pdf', p1, width = 8,
        height = 5, dpi = 800)
 p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = Model)) + 
   geom_point(size = 2) + 
@@ -494,7 +494,7 @@ p1 <- ggplot(result, aes(x = percent, y = `AUC during`, color = Model, shape = M
     y = "AUC during COVID"
   ) + scale_x_reverse()
 p1
-ggsave('bld/figures/AUC_change_district_percent.jpg', p1, width = 8,
+ggsave('bld/figures/AUC_change_district_percent.pdf', p1, width = 8,
        height = 5, dpi = 800)
 
 
